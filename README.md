@@ -5,16 +5,16 @@ This is a containerized ROS communication bridge for the F1TENTH gym environment
 
 **Supported System:**
 
-- Ubuntu (tested on 20.04) native with ROS 2
-- Ubuntu (tested on 20.04) with an NVIDIA gpu and nvidia-docker2 support
-- Windows 10, macOS, and Ubuntu without an NVIDIA gpu (using noVNC)
+- Ubuntu 22.04 with ROS 2 Humble
+- Docker on Ubuntu 22.04 with NVIDIA GPU support
+- Docker on Ubuntu 22.04 without an NVIDIA GPU using noVNC
 
 This installation guide will be split into instruction for installing the ROS 2 package natively, and for systems with or without an NVIDIA gpu in Docker containers.
 
-## Native on Ubuntu 20.04
+## Native on Ubuntu 22.04
 
 **Install the following dependencies:**
-- **ROS 2** Follow the instructions [here](https://docs.ros.org/en/foxy/Installation.html) to install ROS 2 Foxy.
+- **ROS 2** Follow the instructions [here](https://docs.ros.org/en/humble/Installation.html) to install ROS 2 Humble.
 - **F1TENTH Gym**
   ```bash
   git clone https://github.com/f1tenth/f1tenth_gym
@@ -32,9 +32,9 @@ This installation guide will be split into instruction for installing the ROS 2 
   Go to `sim.yaml` [https://github.com/f1tenth/f1tenth_gym_ros/blob/main/config/sim.yaml](https://github.com/f1tenth/f1tenth_gym_ros/blob/main/config/sim.yaml) in your cloned repo, change the `map_path` parameter to point to the correct location. It should be `'<your_home_dir>/sim_ws/src/f1tenth_gym_ros/maps/levine'`
 - Install dependencies with rosdep:
   ```bash
-  source /opt/ros/foxy/setup.bash
+  source /opt/ros/humble/setup.bash
   cd ..
-  rosdep install -i --from-path src --rosdistro foxy -y
+  rosdep install -i --from-path src --rosdistro humble -y
   ```
 - Build the workspace: ```colcon build```
 

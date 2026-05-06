@@ -30,9 +30,17 @@ RUN apt-get update --fix-missing && \
                        nano \
                        vim \
                        python3-pip \
+                       python3-tk \
+                       python3-numpy \
+                       python3-opencv \
+                       python3-scipy \
+                       python3-skimage \
+                       python3-matplotlib \
                        libeigen3-dev \
                        tmux \
-                       ros-humble-rviz2
+                       ros-humble-rviz2 \
+                       ros-humble-robot-state-publisher \
+                       ros-humble-tf-transformations
 RUN apt-get -y dist-upgrade
 RUN pip3 install transforms3d
 
@@ -40,6 +48,16 @@ RUN pip3 install transforms3d
 RUN git clone https://github.com/f1tenth/f1tenth_gym
 RUN cd f1tenth_gym && \
     pip3 install -e .
+
+
+# ...............................................................
+# Make ROS 2 Humble available in interactive Bash shells by default.
+RUN echo 'source /opt/ros/humble/setup.bash' >> /root/.bashrc && \
+    echo 'source /opt/ros/humble/setup.bash' >> /etc/bash.bashrc
+# .................................................................
+
+
+
 
 # ros2 gym bridge
 RUN mkdir -p sim_ws/src/f1tenth_gym_ros

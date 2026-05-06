@@ -13,15 +13,23 @@
   <exec_depend>ackermann_msgs</exec_depend>
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>rclpy</exec_depend>
   <exec_depend>joint_state_publisher</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
   <exec_depend>xacro</exec_depend>
   <exec_depend>nav2_map_server</exec_depend>
   <exec_depend>nav2_lifecycle_manager</exec_depend>
   <exec_depend>teleop_twist_keyboard</exec_depend>
+  <exec_depend>tf_transformations</exec_depend>
   
   <depend>python-transforms3d-pip</depend>
+  <depend>python3-numpy</depend>
+  <depend>python3-opencv</depend>
+  <depend>python3-scipy</depend>
+  <depend>python3-skimage</depend>
+  <depend>python3-matplotlib</depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
