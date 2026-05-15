@@ -40,9 +40,14 @@ RUN apt-get update --fix-missing && \
                        tmux \
                        ros-humble-rviz2 \
                        ros-humble-robot-state-publisher \
-                       ros-humble-tf-transformations
+
+                       ros-humble-tf-transformations \
+                       ros-humble-nav2-map-server \
+                       ros-humble-nav2-lifecycle-manager \
+                       ros-humble-nav2-msgs
+                       
 RUN apt-get -y dist-upgrade
-RUN pip3 install transforms3d
+RUN pip3 install transforms3d casadi pandas do_mpc "cython<3"
 
 # f1tenth gym
 RUN git clone https://github.com/f1tenth/f1tenth_gym
@@ -59,9 +64,20 @@ RUN echo 'source /opt/ros/humble/setup.bash' >> /root/.bashrc && \
 
 
 
-# ros2 gym bridge
-RUN mkdir -p sim_ws/src/f1tenth_gym_ros
+# ros2 gym bridge and additional packages
+RUN mkdir -p sim_ws/src
+
+# particle_filter (MIT/F1TENTH, humble-devel branch)
+RUN git clone --branch humble-devel https://github.com/f1tenth/particle_filter /sim_ws/src/particle_filter
+
+# range_libc — f1tenth maintained fork, humble-devel branch (Python 3 compatible)
+RUN apt-get install -y libboost-all-dev && \
+    git clone --branch humble-devel https://github.com/f1tenth/range_libc /tmp/range_libc && \
+    cd /tmp/range_libc/pywrapper && \
+    python3 setup.py install
+
 COPY . /sim_ws/src/f1tenth_gym_ros
+COPY mpc_f1tenth /sim_ws/src/mpc_f1tenth
 RUN source /opt/ros/humble/setup.bash && \
     cd sim_ws/ && \
     apt-get update --fix-missing && \
@@ -70,3 +86,4 @@ RUN source /opt/ros/humble/setup.bash && \
 
 WORKDIR '/sim_ws'
 ENTRYPOINT ["/bin/bash"]
+
